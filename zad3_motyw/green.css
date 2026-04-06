@@ -1,1 +1,20 @@
+body {
+    background-color: #f0fff0;
+    font-family: Verdana, sans-serif;
+    color: #2e4d2e;
+    margin: 30px;
+}
 
+h1, h2 {
+    color: #2e8b57;
+    border-bottom: 2px solid #2e8b57;
+    padding-bottom: 5px;
+}
+
+img {
+    border: 3px solid #2e8b57;
+}
+
+a {
+    color: #2e8b57;
+}
