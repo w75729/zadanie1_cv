@@ -4,6 +4,7 @@ function zmienMotyw(kolor) {
     const link = document.getElementById('theme-link');
     if (link) { link.href = kolor + '.css'; }
 }
+
 function toggleSekcja() {
     const sekcja = document.getElementById('sekcja-projekty');
     if (sekcja) {
