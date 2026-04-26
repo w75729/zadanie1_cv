@@ -70,3 +70,32 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
         document.getElementById('contact-form').reset();
     }
 });
+
+
+/* Zadanie 6: Pobieranie danych z pliku JSON i dynamiczne budowanie list */
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            // Budowanie listy umiejętności na podstawie danych z JSON
+            const skillsUl = document.getElementById('lista-umiejetnosci');
+            if (skillsUl) {
+                data.skills.forEach(skill => {
+                    let li = document.createElement('li');
+                    li.textContent = skill;
+                    skillsUl.appendChild(li);
+                });
+            }
+
+            // Budowanie listy projektów na podstawie danych z JSON
+            const projectsUl = document.getElementById('lista-projektow');
+            if (projectsUl) {
+                data.projects.forEach(project => {
+                    let li = document.createElement('li');
+                    li.textContent = project;
+                    projectsUl.appendChild(li);
+                });
+            }
+        })
+        .catch(error => console.error("Błąd podczas wczytywania danych JSON:", error));
+});
