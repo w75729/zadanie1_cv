@@ -75,9 +75,14 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
 /* Zadanie 6: Pobieranie danych z pliku JSON i dynamiczne budowanie list */
 document.addEventListener('DOMContentLoaded', function() {
     fetch('data.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Błąd podczas wczytywania pliku JSON");
+            }
+            return response.json();
+        })
         .then(data => {
-            // Budowanie listy umiejętności na podstawie danych z JSON
+            // Budowanie listy umiejętności na podstawie JSON
             const skillsUl = document.getElementById('lista-umiejetnosci');
             if (skillsUl) {
                 data.skills.forEach(skill => {
@@ -87,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            // Budowanie listy projektów na podstawie danych z JSON
+            // Budowanie listy projektów na podstawie JSON
             const projectsUl = document.getElementById('lista-projektow');
             if (projectsUl) {
                 data.projects.forEach(project => {
@@ -97,5 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         })
-        .catch(error => console.error("Błąd podczas wczytywania danych JSON:", error));
+        .catch(error => {
+            console.error("Wystąpił błąd podczas ładowania danych (Zadanie 6):", error);
+        });
 });
