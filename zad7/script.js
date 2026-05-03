@@ -106,3 +106,63 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Wystąpił błąd podczas ładowania danych (Zadanie 6):", error);
         });
 });
+
+
+
+/* Zadanie 7: Local Storage */
+
+// Ładuje dane przy starcie strony
+document.addEventListener('DOMContentLoaded', wyswietlNotatki);
+
+function dodajNotatke() {
+    const input = document.getElementById('input-notatka');
+    const tekst = input.value.trim();
+
+    if (tekst === "") {
+        alert("Pole nie może być puste!");
+        return;
+    }
+
+    // Pobieranie starych danych z localStorage
+    let notatki = JSON.parse(localStorage.getItem('moje_notatki')) || [];
+    
+    // Dodawanie nowej notatki
+    notatki.push(tekst);
+    
+    // Zapisywanie w formacie JSON string
+    localStorage.setItem('moje_notatki', JSON.stringify(notatki));
+
+    input.value = "";
+    wyswietlNotatki();
+}
+
+function wyswietlNotatki() {
+    const lista = document.getElementById('lista-notatek');
+    if (!lista) return;
+
+    // Odczyt danych i zamiana na tablice
+    const notatki = JSON.parse(localStorage.getItem('moje_notatki')) || [];
+    lista.innerHTML = "";
+
+    notatki.forEach((notatka, index) => {
+        const li = document.createElement('li');
+        li.style.marginBottom = "5px";
+        li.innerHTML = `
+            ${notatka} 
+            <button onclick="usunNotatke(${index})" style="margin-left: 10px; color: red; cursor: pointer; border: none; background: none;">[Usuń]</button>
+        `;
+        lista.appendChild(li);
+    });
+}
+
+function usunNotatke(index) {
+    let notatki = JSON.parse(localStorage.getItem('moje_notatki')) || [];
+    
+    // Usuwanie elementu z tablicy
+    notatki.splice(index, 1);
+    
+    // Aktualizacja localStorage
+    localStorage.setItem('moje_notatki', JSON.stringify(notatki));
+    
+    wyswietlNotatki();
+}
